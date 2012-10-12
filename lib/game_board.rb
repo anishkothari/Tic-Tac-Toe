@@ -3,7 +3,8 @@ class GameBoard
 	attr_reader :markers
 
 	def initialize
-		@markers = {'0' => '','1' => '','2' => '','3' => '','4' => '','5' => '','6' => '','7' => '','8' => ''}
+		@markers = {
+		:a1 => '','1' => '','2' => '','3' => '','4' => '','5' => '','6' => '','7' => '','8' => ''}
 	end
 	
 	def set_marker(marker, position)
