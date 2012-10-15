@@ -18,14 +18,14 @@ describe Game do
 	end
 	
 	it "checks if there are three X markers in a row at the 0, 1 and 2 positions" do
-		game.board.markers[:a1] = 'X'
+		game.board.markers['0'] = 'X'
 		game.board.markers['1'] = 'X'
 		game.board.markers['2'] = 'X'
 		game.is_winner?('X').should == true
 	end
 	
 	it "checks if there are three O markers in a row at the 0, 1 and 2 positions" do
-		game.board.markers[:a1] = 'O'
+		game.board.markers['0'] = 'O'
 		game.board.markers['1'] = 'O'
 		game.board.markers['2'] = 'O'
 		game.is_winner?('O').should == true
