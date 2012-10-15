@@ -1,19 +1,23 @@
 class GameConsole
+	attr_accessor :players, :positions
 
-	def initialize(io)
-		@io = io
+	def initialize(nameIO, playerIO)
+		@nameIO = nameIO
+		@playerIO = playerIO
 		@players = []
+		@positions = []
 	end
 	
-	def players
-		@players
-	end
-	
-	def run
-		player_one_name = @io.prompt_player_one
-		player_two_name = @io.prompt_player_two
+	def get_names
+		player_one_name = @nameIO.prompt_player_one
+		player_two_name = @nameIO.prompt_player_two
 		@players << Player.new(player_one_name)
 		@players << Player.new(player_two_name)
+	end
+	
+	def get_positions
+		player_one_first_move = @playerIO.get_player_one_position
+		@positions << Position.new(player_one_first_move)
 	end
 
 end
@@ -32,13 +36,33 @@ class NameIO
 		@names[0] = gets.chomp
 	end
 		
-	def get_player_two_name
-		@names[1]
-	end
-		
 	def prompt_player_two
 		puts "Hello player two. What's your name?"
 		@names[1] = gets.chomp
+	end
+end
+
+class PlayerIO
+	
+	attr_accessor :positions
+	
+	def initialize
+		@positions = []
+	end
+
+	def get_player_one_position
+		puts ""
+		puts "Player One: Where do you want to play?"
+		@positions[0] = gets.chomp
+	end
+	
+end
+
+class Position
+	attr_reader :position
+	
+	def initialize(position)
+		@position = position
 	end
 end
 
@@ -52,6 +76,7 @@ class Player
 end
 
 
-nameIO = NameIO.new
-console = GameConsole.new(nameIO)
-console.run
+#nameIO = NameIO.new
+#console = GameConsole.new(nameIO)
+#console.get_names
+#console.get_positions
