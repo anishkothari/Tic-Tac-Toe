@@ -4,29 +4,19 @@ require 'board'
 class Console
 	attr_accessor :board
 	
-	def initialize(gameIO = GameIO.new)
+	def initialize
 		@board = Board.new
 		@output = Output.new(@board)
-		@gameIO = gameIO
-		@players
-	end
-	
-	def accept_move(board)
-		@gameIO.prompt_position
-	end
-	
-	def get_name
-		@nameIO.prompt_player_name
 	end
 	
 	def show_board(board)
 		@output.show_board(board)
 	end
 	
-	def instructions
-		@gameIO.instructions
+	def get_name
+		@nameIO.prompt_player_name
 	end
-
+	
 end
 
 class Output
@@ -45,19 +35,6 @@ class Output
 		puts "\t #{board.markers['C1']} | #{board.markers['C2']} | #{board.markers['C3']} "
 		puts ""
 	end
-end
-
-class GameIO
-
-	def instructions
-		puts "Please enter input using letters A, B, C and numbers 1, 2, 3. For example: B2"
-	end
-
-	def prompt_position
-		puts "\nWhere do you want to play?"
-		gets.chomp.upcase
-	end
-
 end
 
 class NameIO

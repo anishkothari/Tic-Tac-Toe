@@ -4,6 +4,10 @@ $: << File.expand_path('../../lib', __FILE__)
 $: << File.expand_path('../../lib/game', __FILE__)
 
 require 'game'
+require 'player'
 
 puts "Hello and Welcome to Tic Tac Toe"
-game = Game.new.game_loop
+puts "Please enter input using letters A, B, C and numbers 1, 2, 3. For example: B2"
+player_one = Player.new('X')
+player_two = Player.new('O')
+game = Game.new(player_one, player_two).game_loop

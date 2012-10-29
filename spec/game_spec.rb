@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Game do
 
-	let (:game) {Game.new}
+	let (:game) {Game.new(Player.new('X'), Player.new('O'))}
 	let (:console) {Console.new}
 	
 	it "the game has a board" do

@@ -6,16 +6,15 @@ class Game
 	attr_reader :board, :console
 	attr_writer :player_one, :player_two
 	
-	def initialize
+	def initialize(player_one, player_two)
 		@board = Board.new
 		@console = Console.new
-		@player_one = Player.new('X')
-		@player_two = Player.new('O')
+		@player_one = player_one
+		@player_two = player_two
 		@current_player = @player_one
 	end
 	
 	def game_loop
-		instructions = @console.instructions
 		play_turn
 		result
 	end
@@ -25,7 +24,7 @@ class Game
 	end
 	
 	def pass_move(board)
-		play_at(@console.accept_move(@board), @current_player.marker)
+		play_at(@current_player.prompt_position, @current_player.marker)
 	end
 	
 	def play_at(position, marker)

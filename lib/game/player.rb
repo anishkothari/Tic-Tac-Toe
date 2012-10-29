@@ -4,14 +4,14 @@ class Player
 
 	attr_reader :marker
 	
-	def initialize(marker)
-		@console = Console.new
-		@board = Board.new
+	def initialize(marker, console = Console.new)
+		@console = console
 		@marker = marker
 	end
 	
-	def set_name
-		@console.get_name
+	def prompt_position
+		puts "\nWhere do you want to play?"
+		gets.chomp.upcase
 	end
 	
 end
