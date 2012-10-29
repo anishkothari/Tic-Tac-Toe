@@ -1,12 +1,64 @@
-require 'game_board'
+require 'board'
+require 'player'
+require 'console'
 
 class Game
-	attr_reader :board
+	attr_reader :board, :console
+	attr_writer :player_one, :player_two
 	
 	def initialize
-		@board = GameBoard.new
+		@board = Board.new
+		@console = Console.new
+		@player_one = Player.new('X')
+		@player_two = Player.new('O')
+		@current_player = @player_one
 	end
 	
+	def game_loop
+		instructions = @console.instructions
+		play_turn
+		result
+	end
+	
+	def play_turn
+		pass_move(@board)
+	end
+	
+	def pass_move(board)
+		play_at(@console.accept_move(@board), @current_player.marker)
+	end
+	
+	def play_at(position, marker)
+		@board.set_marker(marker, position)
+		if @board.done == false
+			pass_move(@board)
+			if over?
+				result
+			end
+		end
+		@console.show_board(board)
+		switch_player
+		play_turn unless over?
+	end
+	
+	def switch_player
+		if @current_player == @player_one
+			@current_player = @player_two
+		else
+			@current_player = @player_one
+		end
+	end
+	
+	def result
+		if is_winner?('X')
+			puts "The game is over! Player 1 won!"
+		elsif is_winner?('O')
+			puts "The game is over! Player 2 won!"
+		elsif draw?
+			puts "The game has ended in a draw."
+		end
+	end
+
 	def over?
 		is_winner?('X') || is_winner?('O') || draw?
 	end

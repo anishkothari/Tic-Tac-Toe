@@ -1,11 +1,12 @@
-require 'game'
+require 'spec_helper'
 
 describe Game do
 
 	let (:game) {Game.new}
+	let (:console) {Console.new}
 	
 	it "the game has a board" do
-		game.board.should be_an_instance_of GameBoard
+		game.board.should be_an_instance_of Board
 	end
 	
 	it "returns false if the board is empty" do

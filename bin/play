@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+$: << File.expand_path('../../lib', __FILE__)
+$: << File.expand_path('../../lib/game', __FILE__)
+
+require 'game'
+
+puts "Hello and Welcome to Tic Tac Toe"
+game = Game.new.game_loop
