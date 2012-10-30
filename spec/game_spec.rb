@@ -14,63 +14,63 @@ describe Game do
 	end
 	
 	it "checks if the board is full" do
-		game.board.markers.each_key{ |key| game.board.markers[key] = 'X'}
+		game.board.spaces.each_key{ |key| game.board.spaces[key] = 'X'}
 		game.is_winner?('X').should == true
 	end
 	
-	it "checks if there are three X markers in a row at the 0, 1 and 2 positions" do
-		game.board.markers['A1'] = 'X'
-		game.board.markers['A2'] = 'X'
-		game.board.markers['A3'] = 'X'
+	it "checks if there are three X spaces in a row at the 0, 1 and 2 positions" do
+		game.board.spaces['A1'] = 'X'
+		game.board.spaces['A2'] = 'X'
+		game.board.spaces['A3'] = 'X'
 		game.is_winner?('X').should == true
 	end
 	
-	it "checks if there are three O markers in a row at the 0, 1 and 2 positions" do
-		game.board.markers['A1'] = 'O'
-		game.board.markers['A2'] = 'O'
-		game.board.markers['A3'] = 'O'
+	it "checks if there are three O spaces in a row at the 0, 1 and 2 positions" do
+		game.board.spaces['A1'] = 'O'
+		game.board.spaces['A2'] = 'O'
+		game.board.spaces['A3'] = 'O'
 		game.is_winner?('O').should == true
 	end
 	
-	it "ends the game if there are three X markers at 3, 4, 5 positions" do
-		game.board.markers['B1'] = 'X'
-		game.board.markers['B2'] = 'X'
-		game.board.markers['B3'] = 'X'
+	it "ends the game if there are three X spaces at 3, 4, 5 positions" do
+		game.board.spaces['B1'] = 'X'
+		game.board.spaces['B2'] = 'X'
+		game.board.spaces['B3'] = 'X'
 		game.is_winner?('X').should == true
 	end
 	
-	it "ends the game if there are three X markers at 6, 7, 8 positions" do
-		game.board.markers['C1'] = 'X'
-		game.board.markers['C2'] = 'X'
-		game.board.markers['C3'] = 'X'
+	it "ends the game if there are three X spaces at 6, 7, 8 positions" do
+		game.board.spaces['C1'] = 'X'
+		game.board.spaces['C2'] = 'X'
+		game.board.spaces['C3'] = 'X'
 		game.is_winner?('X').should == true
 	end
 	
-	it "ends the game if there are three X markers at 0, 3, 6 positions" do
-		game.board.markers['A1'] = 'X'
-		game.board.markers['B1'] = 'X'
-		game.board.markers['C1'] = 'X'
+	it "ends the game if there are three X spaces at 0, 3, 6 positions" do
+		game.board.spaces['A1'] = 'X'
+		game.board.spaces['B1'] = 'X'
+		game.board.spaces['C1'] = 'X'
 		game.is_winner?('X').should == true
 	end
 	
-	it "ends the game if there are three X markers at 2, 4, 6 positions" do
-		game.board.markers['A2'] = 'X'
-		game.board.markers['B2'] = 'X'
-		game.board.markers['C2'] = 'X'
+	it "ends the game if there are three X spaces at 2, 4, 6 positions" do
+		game.board.spaces['A2'] = 'X'
+		game.board.spaces['B2'] = 'X'
+		game.board.spaces['C2'] = 'X'
 		game.is_winner?('X').should == true
 	end
 	
 	it "#draw? returns true if there is a draw" do
-		game.board.markers['A1'] = 'X'
-		game.board.markers['A2'] = 'X'
-		game.board.markers['A3'] = 'O'
-		game.board.markers['B1'] = 'O'
-		game.board.markers['B2'] = 'O'
-		game.board.markers['B3'] = 'X'
-		game.board.markers['C1'] = 'X'
-		game.board.markers['C2'] = 'O'
+		game.board.spaces['A1'] = 'X'
+		game.board.spaces['A2'] = 'X'
+		game.board.spaces['A3'] = 'O'
+		game.board.spaces['B1'] = 'O'
+		game.board.spaces['B2'] = 'O'
+		game.board.spaces['B3'] = 'X'
+		game.board.spaces['C1'] = 'X'
+		game.board.spaces['C2'] = 'O'
 		game.draw?.should == false
-		game.board.markers['C3'] = 'X'
+		game.board.spaces['C3'] = 'X'
 		game.draw?.should == true
 	end
 	
@@ -110,13 +110,13 @@ describe Game do
 	end
 	
 	def set_marker_as_winner(marker)
-		game.board.markers['A1'] = marker
-		game.board.markers['A2'] = marker
-		game.board.markers['A3'] = marker
+		game.board.spaces['A1'] = marker
+		game.board.spaces['A2'] = marker
+		game.board.spaces['A3'] = marker
 	end
 	
 	def set_marker_at_positions(marker, positions)
-		positions.each {|pos| game.board.markers[pos] = marker}
+		positions.each {|pos| game.board.spaces[pos] = marker}
 	end
 	
 end

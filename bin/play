@@ -1,13 +1,15 @@
 #!/usr/bin/env ruby
 
-$: << File.expand_path('../../lib', __FILE__)
 $: << File.expand_path('../../lib/game', __FILE__)
 
 require 'game'
 require 'player'
+require 'board'
 
 puts "Hello and Welcome to Tic Tac Toe"
 puts "Please enter input using letters A, B, C and numbers 1, 2, 3. For example: B2"
-player_one = Player.new('X')
-player_two = Player.new('O')
-game = Game.new(player_one, player_two).game_loop
+board = Board.new
+human_player = Player.new('X')
+#human_player_two = Player.new('O')
+ai_player = AIPlayer.new('O', board)
+game = Game.new(human_player, ai_player).game_loop

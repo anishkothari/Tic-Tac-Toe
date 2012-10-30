@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe "Player" do
+describe "AIPlayer" do
 	
-	it "passes an input from console to make a move on the board" do
+	it "#prompt_position makes a random move for the AI" do
 		board = Board.new
-		player = Player.new('X')
-		player2 = Player.new('O')
-		game = Game.new(player, player2)
-		game.stub!(:pass_move).and_return("A1")
-		pending
-		board.empty_position?('A1').should == false
+		human = Player.new('X')
+		ai = AIPlayer.new('O', board)
+		move = ai.prompt_position
+		keys = board.spaces.keys.include?(move)
+		keys.should == true
 	end
+
 end

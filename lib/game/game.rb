@@ -3,12 +3,12 @@ require 'player'
 require 'console'
 
 class Game
-	attr_reader :board, :console
+	attr_reader :board
 	attr_writer :player_one, :player_two
 	
 	def initialize(player_one, player_two)
 		@board = Board.new
-		@console = Console.new
+		@output = Output.new
 		@player_one = player_one
 		@player_two = player_two
 		@current_player = @player_one
@@ -20,24 +20,19 @@ class Game
 	end
 	
 	def play_turn
-		pass_move(@board)
-	end
-	
-	def pass_move(board)
 		play_at(@current_player.prompt_position, @current_player.marker)
 	end
 	
 	def play_at(position, marker)
 		@board.set_marker(marker, position)
-		if @board.done == false
-			pass_move(@board)
-			if over?
-				result
-			end
+		while @board.done == false
+			play_turn
 		end
-		@console.show_board(board)
-		switch_player
-		play_turn unless over?
+		@output.show_board(board)
+		while !over? 
+			switch_player
+			play_turn
+		end
 	end
 	
 	def switch_player
@@ -65,17 +60,17 @@ class Game
 	def is_winner?(marker)
 		winning_positions.any? do |winning_position|
 			winning_position.all? do |space|
-				@board.markers[space] == marker
+				@board.spaces[space] == marker
 			end
 		end
 	end
 	
 	def count_empty_spaces
-		@board.markers.select{|k,v| v == ''}.count
+		@board.spaces.select{|k,v| v == ''}.count
 	end
 	
 	def draw?
-		!@board.markers.has_value?('') && count_empty_spaces == 0 
+		!@board.spaces.has_value?('') && count_empty_spaces == 0 
 	end
 	
 	def winning_positions
