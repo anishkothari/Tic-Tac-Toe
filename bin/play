@@ -4,12 +4,28 @@ $: << File.expand_path('../../lib/game', __FILE__)
 
 require 'game'
 require 'player'
-require 'board'
+require 'console'
 
-puts "Hello and Welcome to Tic Tac Toe"
-puts "Please enter input using letters A, B, C and numbers 1, 2, 3. For example: B2"
-board = Board.new
-human_player = Player.new('X')
-#human_player_two = Player.new('O')
-ai_player = AIPlayer.new('O', board)
-game = Game.new(human_player, ai_player).game_loop
+puts "Do you want to play in English or Espanol?"
+selected_language = gets.chomp
+output = case selected_language
+when "english"
+  output = Output.new
+when "espanol" # || "espanol"
+  output = SpanishOutput.new
+end
+
+human_player = HumanPlayer.new('X')
+output.player_two_type
+player_two_choice = gets.chomp
+player = case player_two_choice
+when "human"
+	player_two = HumanPlayer.new('O')
+when "ai"
+	player_two = EasyAIPlayer.new('O')
+end
+
+output.intro
+
+game = Game.new(human_player, player_two, output).game_loop
+
