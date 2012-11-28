@@ -1,34 +1,43 @@
 require 'board'
 
 class Player
-
+	
 	attr_reader :marker
 	
 	def initialize(marker)
 		@marker = marker
 	end
+
+end
+
+class HumanPlayer < Player
 	
-	def prompt_position
-		puts "\nWhere do you want to play?"
+	def prompt_position(board)
 		gets.chomp.upcase
 	end
 	
 end
 
-class AIPlayer
+class EasyAIPlayer < Player
 
-	attr_reader :marker, :board
-
-	def initialize(marker, board)
-		@marker = marker
-		@board = board
+	def prompt_position(board)
+		random_move(board)
+	end
+	
+	def random_move(board)
+		board.open_spaces.sample
 	end
 
-	def prompt_position
-		keys = @board.spaces.keys
-		@move = keys[Random.new.rand(0..8)]
-		p "The Computer plays at " + @move.to_s
-		@move
+end
+
+class UnbeatableAIPlayer < Player
+
+	def prompt_position(board)
+		open_move(board)
+	end
+	
+	def open_move(board)
+		board.open_spaces.first
 	end
 
 end

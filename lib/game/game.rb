@@ -6,33 +6,34 @@ class Game
 	attr_reader :board
 	attr_writer :player_one, :player_two
 	
-	def initialize(player_one, player_two)
+	def initialize(player_one, player_two, output)
 		@board = Board.new
-		@output = Output.new
+		@output = output
 		@player_one = player_one
 		@player_two = player_two
 		@current_player = @player_one
 	end
 	
 	def game_loop
-		play_turn
+		while !over? 
+			play_turn
+			switch_player
+		end
 		result
 	end
 	
 	def play_turn
-		play_at(@current_player.prompt_position, @current_player.marker)
+		begin
+		play_at(@current_player.prompt_position(@board), @current_player.marker)
+		rescue
+		@output.tell_user_bad_move
+		play_turn
+		end
+		@output.show_board(@board)
 	end
 	
 	def play_at(position, marker)
 		@board.set_marker(marker, position)
-		while @board.done == false
-			play_turn
-		end
-		@output.show_board(board)
-		while !over? 
-			switch_player
-			play_turn
-		end
 	end
 	
 	def switch_player
@@ -45,11 +46,11 @@ class Game
 	
 	def result
 		if is_winner?('X')
-			puts "The game is over! Player 1 won!"
+			@output.tell_player_1_winner			
 		elsif is_winner?('O')
-			puts "The game is over! Player 2 won!"
+			@output.tell_player_2_winner
 		elsif draw?
-			puts "The game has ended in a draw."
+			@output.tell_draw
 		end
 	end
 
@@ -65,12 +66,12 @@ class Game
 		end
 	end
 	
-	def count_empty_spaces
-		@board.spaces.select{|k,v| v == ''}.count
+	def draw?
+		count_empty_spaces == 0 
 	end
 	
-	def draw?
-		!@board.spaces.has_value?('') && count_empty_spaces == 0 
+	def count_empty_spaces
+		@board.spaces.select{|k,v| v == ''}.count
 	end
 	
 	def winning_positions
