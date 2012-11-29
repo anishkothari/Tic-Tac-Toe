@@ -12,7 +12,7 @@ class Output
 	end
 	
 	def player_two_type
-		puts "Do you want to play against a human player or the ai?"
+		puts "Do you want to play against a human player, the ai, or the unbeatable ai?"
 	end
 	
 	def play_one_turn
@@ -60,7 +60,7 @@ class SpanishOutput
 	end
 	
 	def player_two_type
-		puts "Quieres jugar contra human o ai?"
+		puts "Quieres jugar contra human, ai o unbeatable?"
 	end
 	
 	def show_board(board)

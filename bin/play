@@ -11,7 +11,7 @@ selected_language = gets.chomp
 output = case selected_language
 when "english"
   output = Output.new
-when "espanol" # || "espanol"
+when "espanol"
   output = SpanishOutput.new
 end
 
@@ -23,6 +23,8 @@ when "human"
 	player_two = HumanPlayer.new('O')
 when "ai"
 	player_two = EasyAIPlayer.new('O')
+when "unbeatable"
+	player_two = UnbeatableAIPlayer.new('O', 'X')
 end
 
 output.intro

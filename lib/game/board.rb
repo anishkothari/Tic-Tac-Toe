@@ -1,15 +1,11 @@
-class Board	
+class Board
 
-	attr_reader :spaces, :rows, :open_rows
-	
+	attr_accessor :spaces
+
 	def initialize
 		@spaces = {'A1' => '','A2' => '','A3' => '','B1' => '','B2' => '','B3' => '','C1' => '','C2' => '','C3' => ''}
-		row1 = 'A1', 'A2', 'A3'
-		row2 = 'B1', 'B2', 'B3'
-		row3 = 'C1', 'C2', 'C3'
-		@rows = {"Row 1" => row1, "Row 2" => row2, "Row 3" => row3}
 	end
-	 
+
 	def set_marker(marker, position)
 		if valid_move?(position)
 			@spaces[position] = marker
@@ -17,19 +13,44 @@ class Board
 			raise ArgumentError.new('Incorrect input.')
 		end
 	end
-	
+
 	def valid_move?(position)
-		valid_marker?(position) && empty_position?(position) 
+		valid_marker?(position) && empty_position?(position)
 	end
-	
+
 	def empty_position?(position)
 		spaces[position] == ''
 	end
-	
+
 	def valid_marker?(position)
 		spaces.keys.include?(position)
 	end
-	
+
+	def copy_board
+		new_board = Board.new
+		new_board.spaces = spaces.clone
+		new_board
+	end
+
+  def with_move(position, marker, &block)
+    old_marker = spaces[position]
+    spaces[position] = marker
+    result = block.call
+    spaces[position] = old_marker
+    result
+  end
+
+  def won?(marker)
+	spaces['A1'] == marker && spaces['A2'] == marker && spaces['A3'] == marker ||
+      spaces['B1'] == marker && spaces['B2'] == marker && spaces['B3'] == marker ||
+      spaces['C1'] == marker && spaces['C2'] == marker && spaces['C3'] == marker ||
+      spaces['A1'] == marker && spaces['B1'] == marker && spaces['C1'] == marker ||
+      spaces['A2'] == marker && spaces['B2'] == marker && spaces['C2'] == marker ||
+      spaces['A3'] == marker && spaces['B3'] == marker && spaces['C3'] == marker ||
+      spaces['A1'] == marker && spaces['B2'] == marker && spaces['C3'] == marker ||
+      spaces['C1'] == marker && spaces['B2'] == marker && spaces['A3'] == marker
+  end
+
 	def open_spaces
 		open = []
 		spaces.each do |key, value|
@@ -40,41 +61,12 @@ class Board
 		open
 	end
 	
-	def rows_with_open_spaces
-		@open_rows = []
-		open_spaces.each do |open_space|
-			rows.each { |row, spaces| @open_rows << row if spaces.include?(open_space) }
-		end
-		@open_rows.uniq
+	def draw?
+		count_empty_spaces == 0 
 	end
 	
-	def view_open_row_markers(open_rows)
-		values = []
-		open_rows[0..2].each do |row|
-			values << row.split(", ")
-		end
-		values
-		rows
+	def count_empty_spaces
+		spaces.select{|k,v| v == ''}.count
 	end
-	
-	def x_spaces
-		x = []
-		spaces.each do |key, value|
-			if value == 'X'
-				x << key
-			end
-		end
-		x
-	end
-	
-	def o_spaces
-		o = []
-		spaces.each do |key, value|
-			if value == 'O'
-				o << key
-			end
-		end
-		o
-	end
-		
+
 end
