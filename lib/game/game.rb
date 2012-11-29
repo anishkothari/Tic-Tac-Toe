@@ -15,7 +15,7 @@ class Game
 	end
 	
 	def game_loop
-		while !over? 
+		while !over?
 			play_turn
 			switch_player
 		end
@@ -24,8 +24,9 @@ class Game
 	
 	def play_turn
 		begin
-		play_at(@current_player.prompt_position(@board), @current_player.marker)
-		rescue
+		response = @current_player.prompt_position(@board)
+		play_at(response, @current_player.marker)	
+		rescue ArgumentError
 		@output.tell_user_bad_move
 		play_turn
 		end

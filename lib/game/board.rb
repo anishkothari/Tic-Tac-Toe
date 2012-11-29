@@ -32,14 +32,6 @@ class Board
 		new_board
 	end
 
-  def with_move(position, marker, &block)
-    old_marker = spaces[position]
-    spaces[position] = marker
-    result = block.call
-    spaces[position] = old_marker
-    result
-  end
-
   def won?(marker)
 	spaces['A1'] == marker && spaces['A2'] == marker && spaces['A3'] == marker ||
       spaces['B1'] == marker && spaces['B2'] == marker && spaces['B3'] == marker ||
@@ -59,14 +51,6 @@ class Board
 			end
 		end
 		open
-	end
-	
-	def draw?
-		count_empty_spaces == 0 
-	end
-	
-	def count_empty_spaces
-		spaces.select{|k,v| v == ''}.count
 	end
 
 end

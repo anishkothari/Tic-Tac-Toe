@@ -1,4 +1,5 @@
 require 'board'
+require 'position_scorer'
 
 class Player
 
@@ -45,37 +46,13 @@ class UnbeatableAIPlayer
 
 	def open_move(board)
 		board.open_spaces.max_by do |open_space|
-			board.with_move(open_space, marker) do
-				score = minimax(board, marker)
-				p score
-				score
-			end
+			score = minimax(board, marker, open_space)
 		end
 	end
 
-  def other_m(m)
-    if m == marker
-      marker
-    else
-      other_marker
-    end
-  end
-
-  def minimax(board, current_marker)
-    other = other_m(current_marker)
-    if board.won?(current_marker)
-      score = 1
-    elsif board.draw?
-	  score = 0
-    elsif board.won?(other)
-      score = -1
-    else
-      board.open_spaces.map do |open_space|
-        board.with_move(open_space, other) do
-          -1 * minimax(board, other)
-        end
-      end.max
-    end
-  end
+	def minimax(board, current_marker, space)
+		ps = Position_Scorer.new(current_marker, other_marker)
+		ps.return_score(board, space)
+	end
 
 end
