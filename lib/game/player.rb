@@ -41,16 +41,18 @@ class UnbeatableAIPlayer
   end
 
 	def prompt_position(board)
-		open_move(board)
+		smart_move(board)
 	end
 
-	def open_move(board)
+	def smart_move(board)
+		max_score = -100
+		min_score = 100
 		board.open_spaces.max_by do |open_space|
 			score = minimax(board, marker, open_space)
 		end
 	end
-
-	def minimax(board, current_marker, space)
+	
+	def minimax(board, current_marker, space, ply = 0)
 		ps = Position_Scorer.new(current_marker, other_marker)
 		ps.return_score(board, space)
 	end

@@ -119,18 +119,6 @@ describe Board do
       board.won?('X').should be_true
     end
     
-    it "returns true when there is a draw" do
-		board.spaces['A1'] = 'X'
-		board.spaces['A2'] = 'X'
-		board.spaces['A3'] = 'O'
-		board.spaces['B1'] = 'O'
-		board.spaces['B2'] = 'O'
-		board.spaces['B3'] = 'X'
-		board.spaces['C1'] = 'X'
-		board.spaces['C2'] = 'O'
-		board.spaces['C3'] = 'X'
-		board.draw?.should be_true
-    end
   end
 
 end

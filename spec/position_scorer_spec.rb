@@ -40,4 +40,12 @@ describe Position_Scorer do
 		board.set_marker('O', 'B2')
 		Position_Scorer.new('X', 'O').return_score(board, 'A3').should == -1
 	end
+	
+	it "returns -1 for a position that can fork the game" do
+		board.set_marker('X', 'A2')
+		board.set_marker('O', 'A1')
+		board.set_marker('X', 'B1')
+		board.set_marker('O', 'A3')
+		Position_Scorer.new('X', 'O').return_score(board, 'B2').should == -1
+	end
 end
