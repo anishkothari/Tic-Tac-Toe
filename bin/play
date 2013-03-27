@@ -9,6 +9,10 @@ require 'console'
 puts "Do you want to play in English or Espanol?"
 selected_language = gets.chomp
 output = case selected_language
+when "English"
+  output = Output.new
+when "Espanol"
+  output = SpanishOutput.new
 when "english"
   output = Output.new
 when "espanol"
@@ -30,4 +34,3 @@ end
 output.intro
 
 game = Game.new(human_player, player_two, output).game_loop
-
