@@ -8,13 +8,13 @@ class Position_Scorer
 	def player_will_win(board, position)
 		new_board = board.copy_board
 		new_board.set_marker(@current_marker, position)
-		new_board.won?(@current_marker)
+		Rules.new(new_board).is_winner?(@current_marker)
 	end
 
 	def other_player_will_win(board, position)
 		new_board = board.copy_board
 		new_board.set_marker(@other_marker, position)
-		new_board.won?(@other_marker)
+		Rules.new(new_board).is_winner?(@other_marker)
 	end
 
 	def player_will_lose_in_the_future(board, position)

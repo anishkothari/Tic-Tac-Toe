@@ -32,16 +32,16 @@ class Board
 		new_board
 	end
 
-  def won?(marker)
-	  spaces['A1'] == marker && spaces['A2'] == marker && spaces['A3'] == marker ||
-    spaces['B1'] == marker && spaces['B2'] == marker && spaces['B3'] == marker ||
-    spaces['C1'] == marker && spaces['C2'] == marker && spaces['C3'] == marker ||
-    spaces['A1'] == marker && spaces['B1'] == marker && spaces['C1'] == marker ||
-    spaces['A2'] == marker && spaces['B2'] == marker && spaces['C2'] == marker ||
-    spaces['A3'] == marker && spaces['B3'] == marker && spaces['C3'] == marker ||
-    spaces['A1'] == marker && spaces['B2'] == marker && spaces['C3'] == marker ||
-    spaces['C1'] == marker && spaces['B2'] == marker && spaces['A3'] == marker
-  end
+#  def won?(marker)
+#	  spaces['A1'] == marker && spaces['A2'] == marker && spaces['A3'] == marker ||
+#    spaces['B1'] == marker && spaces['B2'] == marker && spaces['B3'] == marker ||
+#    spaces['C1'] == marker && spaces['C2'] == marker && spaces['C3'] == marker ||
+#    spaces['A1'] == marker && spaces['B1'] == marker && spaces['C1'] == marker ||
+#    spaces['A2'] == marker && spaces['B2'] == marker && spaces['C2'] == marker ||
+#    spaces['A3'] == marker && spaces['B3'] == marker && spaces['C3'] == marker ||
+#    spaces['A1'] == marker && spaces['B2'] == marker && spaces['C3'] == marker ||
+#    spaces['C1'] == marker && spaces['B2'] == marker && spaces['A3'] == marker
+#  end
 
 	def open_spaces
 		open = []
