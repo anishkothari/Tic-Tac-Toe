@@ -3,7 +3,15 @@ class Board
 	attr_accessor :spaces
 
 	def initialize
-		@spaces = {'A1' => '','A2' => '','A3' => '','B1' => '','B2' => '','B3' => '','C1' => '','C2' => '','C3' => ''}
+		@spaces = {'A1' => '',
+               'A2' => '',
+               'A3' => '',
+               'B1' => '',
+               'B2' => '',
+               'B3' => '',
+               'C1' => '',
+               'C2' => '',
+               'C3' => ''}
 	end
 
 	def set_marker(marker, position)
@@ -13,6 +21,10 @@ class Board
 			raise ArgumentError.new('Incorrect input.')
 		end
 	end
+
+  def undo_move(position)
+    @spaces[position] = ''
+  end
 
 	def valid_move?(position)
 		valid_marker?(position) && empty_position?(position)
@@ -31,17 +43,6 @@ class Board
 		new_board.spaces = spaces.clone
 		new_board
 	end
-
-#  def won?(marker)
-#	  spaces['A1'] == marker && spaces['A2'] == marker && spaces['A3'] == marker ||
-#    spaces['B1'] == marker && spaces['B2'] == marker && spaces['B3'] == marker ||
-#    spaces['C1'] == marker && spaces['C2'] == marker && spaces['C3'] == marker ||
-#    spaces['A1'] == marker && spaces['B1'] == marker && spaces['C1'] == marker ||
-#    spaces['A2'] == marker && spaces['B2'] == marker && spaces['C2'] == marker ||
-#    spaces['A3'] == marker && spaces['B3'] == marker && spaces['C3'] == marker ||
-#    spaces['A1'] == marker && spaces['B2'] == marker && spaces['C3'] == marker ||
-#    spaces['C1'] == marker && spaces['B2'] == marker && spaces['A3'] == marker
-#  end
 
 	def open_spaces
 		open = []

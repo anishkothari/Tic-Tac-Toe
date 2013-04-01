@@ -120,6 +120,13 @@ describe Board do
       rules.is_winner?('X').should be_true
     end
 
+    it "undoes a move" do
+      board.set_marker("X", 'C1')
+      board.spaces['C1'].should == "X"
+      board.undo_move('C1')
+      board.spaces['C1'].should == ''
+    end
+
   end
 
 end

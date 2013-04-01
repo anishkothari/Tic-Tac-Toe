@@ -41,48 +41,40 @@ class UnbeatableAIPlayer
   end
 
   def prompt_position(board)
-    score = minimax(board, marker)
+    spaces = score_open_spaces(board)
+    p spaces
+    spaces.sort_by { |_, score| score }.reverse.first.first
   end
 
-  def minimax(board, marker)
-    # copy the board and/or make a move to see if it ends the game
-    # undo the move
+  def score_open_spaces(board)
+    spaces = {}
+    board.open_spaces.each do |space|
+      board.set_marker(marker, space)
+      spaces[space] = -minimax(board)
+      board.undo_move(space)
+    end
+    return spaces
+  end
+
+  def calculate_current_player(board)
+    board.open_spaces.count % 2 == 0 ? marker : other_marker
+  end
+
+  def minimax(board, ply = 0.5)
+    current_player = calculate_current_player(board)
     if Rules.new(board).over?
-    end
-    board.open_spaces.max_by do |space|
-      #minimax(space)
       ps = Position_Scorer.new(marker, other_marker)
-      score = ps.return_score(board, space)
+      score = ps.return_score(board, current_player)
+      return score
     end
-  end
-
-  def scorer(board, marker, space)
-    ps = Position_Scorer.new(marker, other_marker)
-    score = ps.return_score(board, space)
-  end
-
-  #	def max_move(board, current_marker)
-  #    if board.Game.over?
-  #      ps = Position_Scorer.new(current_marker, other_marker)
-  #      score = ps.return_score(new_board, space)
-  #      return score
-  #    else
-  #      new_board = board.copy_board
-  #      new_board.set_marker(current_marker, space)
-  #    end
-  #    new_board.open_spaces.each do |open_space|
-  #      min_move(new_board, marker, open_space)
-  #    end
-  #    score = min_move(new_board, marker, space)
-  #  end
-
-  def min_move(board, current_marker, space)
-    max_score = -1
-    min_score = 1
-    Game.over?
-    ps = Position_Scorer.new(current_marker, other_marker)
-    score = ps.return_score(board, space)
-    score = -negamax(board, marker, space)
+    max = -1000
+    board.open_spaces.each do |space|
+      board.set_marker(current_player, space)
+      score = -minimax(board, ply + 1)
+      max = score if score > max
+      board.undo_move(space)
+    end
+    return max.to_f/ply
   end
 
 end
