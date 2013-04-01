@@ -21,7 +21,7 @@ class Rules
   end
 
   def draw?
-    count_empty_spaces == 0
+    !is_winner?('X') && !is_winner?('O') && count_empty_spaces == 0
   end
 
   def count_empty_spaces

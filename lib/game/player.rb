@@ -42,8 +42,7 @@ class UnbeatableAIPlayer
 
   def prompt_position(board)
     spaces = score_open_spaces(board)
-    p spaces
-    spaces.sort_by { |_, score| score }.reverse.first.first
+    spaces.key(spaces.values.max)
   end
 
   def score_open_spaces(board)
@@ -60,12 +59,10 @@ class UnbeatableAIPlayer
     board.open_spaces.count % 2 == 0 ? marker : other_marker
   end
 
-  def minimax(board, ply = 0.5)
+  def minimax(board, ply = 1.0)
     current_player = calculate_current_player(board)
     if Rules.new(board).over?
-      ps = Position_Scorer.new(marker, other_marker)
-      score = ps.return_score(board, current_player)
-      return score
+      return Position_Scorer.return_score(board, current_player)
     end
     max = -1000
     board.open_spaces.each do |space|
@@ -74,7 +71,7 @@ class UnbeatableAIPlayer
       max = score if score > max
       board.undo_move(space)
     end
-    return max.to_f/ply
+    return max/ply
   end
 
 end
