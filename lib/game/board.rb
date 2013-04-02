@@ -51,7 +51,7 @@ class Board
         open << key
       end
     end
-		return open
-	end
+    return open
+  end
 
 end

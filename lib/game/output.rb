@@ -7,7 +7,7 @@ class Output
   def intro
     puts "Hello and Welcome to Tic Tac Toe"
     puts "Please enter input using letters A, B, C and numbers 1, 2, 3. For example: B2"
-	end
+  end
 
   def player_two_type
     puts "Do you want to play against a human player, easy ai, or hard ai?"
