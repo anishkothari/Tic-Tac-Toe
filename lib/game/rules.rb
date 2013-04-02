@@ -28,6 +28,16 @@ class Rules
     @board.spaces.select{|k,v| v == ''}.count
   end
 
+  def return_score(board, current_player)
+    if draw?
+      0
+    elsif is_winner?(current_player)
+      1
+    else
+      -1
+    end
+  end
+
   def winning_positions
     [
     #rows
@@ -43,6 +53,5 @@ class Rules
     ['A3', 'B2', 'C1']
     ]
   end
-
 
 end

@@ -1,6 +1,6 @@
 require 'board'
 require 'player'
-require 'console'
+require 'output'
 require 'rules'
 
 class Game

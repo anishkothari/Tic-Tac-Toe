@@ -4,7 +4,7 @@ $: << File.expand_path('../../lib/game', __FILE__)
 
 require 'game'
 require 'player'
-require 'console'
+require 'output'
 
 puts "Do you want to play in English or Espanol?"
 selected_language = gets.chomp
@@ -24,11 +24,11 @@ output.player_two_type
 player_two_choice = gets.chomp
 player = case player_two_choice
 when "human"
-	player_two = HumanPlayer.new('O')
-when "ai"
-	player_two = EasyAIPlayer.new('O')
-when "unbeatable"
-	player_two = UnbeatableAIPlayer.new('O', 'X')
+  player_two = HumanPlayer.new('O')
+when "easy"
+  player_two = EasyAIPlayer.new('O')
+when "hard"
+ player_two = UnbeatableAIPlayer.new('O', 'X')
 end
 
 output.intro

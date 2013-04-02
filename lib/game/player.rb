@@ -1,5 +1,4 @@
 require 'board'
-require 'position_scorer'
 
 class Player
 
@@ -52,7 +51,7 @@ class UnbeatableAIPlayer
       spaces[space] = -minimax(board)
       board.undo_move(space)
     end
-    return spaces
+  return spaces
   end
 
   def calculate_current_player(board)
@@ -61,8 +60,9 @@ class UnbeatableAIPlayer
 
   def minimax(board, ply = 1.0)
     current_player = calculate_current_player(board)
-    if Rules.new(board).over?
-      return Position_Scorer.return_score(board, current_player)
+    rules = Rules.new(board)
+    if rules.over?
+      return rules.return_score(board, current_player)
     end
     max = -1000
     board.open_spaces.each do |space|

@@ -4,15 +4,13 @@ describe Game do
 
 	let (:game) {Game.new(Player.new('X'), Player.new('O'), Output.new)}
   let (:rules) {Rules.new(game.board)}
-	let (:fake_output) {
-		FakeOutput.new
-	}
+	let (:fake_output) {FakeOutput.new}
 	let (:fake_game) {
 		player1 = FakePlayer.new([], 'X')
 		player2 = FakePlayer.new([], '0')
 		game = Game.new(player1, player2, fake_output)
 	}
-	let (:console) {Console.new}
+	let (:output) {Output.new}
 
 	class FakePlayer
 
